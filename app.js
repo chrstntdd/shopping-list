@@ -1,3 +1,18 @@
+$(function() {
+  var formElement = $('#js-shopping-list-form');
+  var listElement = $('.js-shopping-list');
+
+  var newItemId    = '#js-new-item';
+  var removeButton = '.js-shopping-item-delete';
+  var itemDataAttr = 'data-list-item-id';
+  var toggleButton = '.js-shopping-item-toggle'
+
+  handleItemAdds(formElement, newItemId, itemDataAttr, listElement, state);
+  handleItemDeletes(formElement, removeButton, itemDataAttr, listElement, state);
+  handleItemToggles(listElement, toggleButton, itemDataAttr, state);
+});
+
+
 var listItemTemplate = (
   '<li>' +
     '<span class="shopping-item js-shopping-item"></span>' +
@@ -58,18 +73,18 @@ function renderList(state, listElement, itemDataAttr) {
 
 //EVENT LISTENERS
 
-function handleItemAdds(formElement, newItemIdentifier, itemDataAttr, listElement, state) {
+function handleItemAdds(formElement, newItemId, itemDataAttr, listElement, state) {
   formElement.submit(function (e) {
     e.preventDefault();
-    var newItem = formElement.find(newItemIdentifier).val();
+    var newItem = formElement.find(newItemId).val();
     createItem(state, newItem);
     renderList(state, listElement, itemDataAttr);
     this.reset();
   });
 }
 
-function handleItemDeletes(formElement, removeIdentifier, itemDataAttr, listElement, state) {
-  listElement.on('click', removeIdentifier, function (e) {
+function handleItemDeletes(formElement, removeButton, itemDataAttr, listElement, state) {
+  listElement.on('click', removeButton, function (e) {
     var itemIndex = parseInt($(this).closest('li').attr(itemDataAttr));
     deleteItem(state, itemIndex);
     renderList(state, listElement, itemDataAttr);
@@ -77,8 +92,8 @@ function handleItemDeletes(formElement, removeIdentifier, itemDataAttr, listElem
 }
 
 
-function handleItemToggles(listElement, toggleIdentifier, itemDataAttr, state) {
-  listElement.on('click', toggleIdentifier, function (e) {
+function handleItemToggles(listElement, toggleButton, itemDataAttr, state) {
+  listElement.on('click', toggleButton, function (e) {
     var itemId = $(this.closest('li')).attr(itemDataAttr);
     var oldItem = retrieveItem(state, itemId);
 
