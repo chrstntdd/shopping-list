@@ -31,7 +31,7 @@ var state = {
   items: []
 }
 
-//Manage state//
+//MANAGE STATE
 
 function createItem (state, item) {
   state.items.push({
@@ -45,7 +45,7 @@ function retrieveItem (state, itemIndex){
 }
 
 function updateItem(state, itemIndex, newItemState){
-  state.items[itemIndex] = newItemState; //TODO: Refactor left side of assignment operation to use retrieveItem if possible.
+  state.items[itemIndex] = newItemState;
 }
 
 function deleteItem(state, itemIndex){
@@ -90,7 +90,6 @@ function handleItemDeletes(formElement, removeButton, itemDataAttr, listElement,
     renderList(state, listElement, itemDataAttr);
   });
 }
-
 
 function handleItemToggles(listElement, toggleButton, itemDataAttr, state) {
   listElement.on('click', toggleButton, function (e) {
